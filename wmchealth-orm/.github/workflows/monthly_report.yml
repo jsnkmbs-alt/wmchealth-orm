@@ -52,18 +52,27 @@ jobs:
 
       - name: Build PowerPoint report
         run: |
+          MONTH="${{ github.event.inputs.month }}"
+          if [ -z "$MONTH" ]; then
+            MONTH=$(date -d "$(date +%Y-%m-01) -1 month" +%Y-%m 2>/dev/null || date -v-1m +%Y-%m)
+          fi
+          mkdir -p docs/reports
           python orm-reports/scripts/build_report.py \
-            --data orm-reports/scripts/data.json
+            --data orm-reports/scripts/data.json \
+            --output docs/reports/WMCHealth_CTL_${MONTH}.pptx
 
       - name: Update dashboard
         run: |
+          mkdir -p docs
           python orm-reports/scripts/update_dashboard.py \
-            --data orm-reports/scripts/data.json
+            --data orm-reports/scripts/data.json \
+            --docs docs
 
       - name: Commit and push report
         run: |
           git config --global user.name  "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add orm-reports/
+          git add orm-reports/scripts/data.json
+          git add docs/
           git diff --staged --quiet || git commit -m "📊 Auto-generate CTL report $(date +'%B %Y')"
           git push

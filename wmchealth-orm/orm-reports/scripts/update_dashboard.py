@@ -1,11 +1,13 @@
 """
 update_dashboard.py
 -------------------
-Reads metrics JSON and writes orm-reports/docs/index.html —
+Reads metrics JSON and writes docs/index.html —
 the GitHub Pages dashboard for the WMCHealth CTL report.
 
 Usage:
-  python orm-reports/scripts/update_dashboard.py --data orm-reports/scripts/data.json
+  python orm-reports/scripts/update_dashboard.py \
+    --data orm-reports/scripts/data.json \
+    --docs docs
 """
 
 import os
@@ -33,14 +35,17 @@ def rate_color(rate):
     return "#B71C1C"
 
 
-def build_html(metrics: dict, report_filename: str) -> str:
+def build_html(metrics: dict, report_filename: str, docs_path: str) -> str:
     meta        = metrics["meta"]
     net         = metrics["network"]
     generated   = meta.get("generated_at", "")[:10]
     month_label = meta.get("month_label", "")
 
     # ── Archive links ─────────────────────────────────────────────────────────
-    report_files = sorted(glob.glob("orm-reports/docs/reports/WMCHealth_CTL_*.pptx"), reverse=True)
+    report_files = sorted(
+        glob.glob(os.path.join(docs_path, "reports", "WMCHealth_CTL_*.pptx")),
+        reverse=True
+    )
     archive_links = ""
     for rf in report_files:
         fname = os.path.basename(rf)
@@ -89,14 +94,14 @@ def build_html(metrics: dict, report_filename: str) -> str:
 
     task_rows = ""
     for t in open_tasks:
-        score      = t.get("score", 0)
-        days       = t.get("days_open", 0)
-        region     = t.get("region", "")
-        row_class  = "row-critical" if score < 1.5 or days >= 14 else "row-warn"
-        badge_clr  = region_color_map.get(region, "#455A64")
-        day_clr    = "#B71C1C" if days >= 14 else "#E65100"
-        score_clr  = rate_color(int(100 - score * 20))
-        text       = (t.get("text") or "")[:80]
+        score     = t.get("score", 0)
+        days      = t.get("days_open", 0)
+        region    = t.get("region", "")
+        row_class = "row-critical" if score < 1.5 or days >= 14 else "row-warn"
+        badge_clr = region_color_map.get(region, "#455A64")
+        day_clr   = "#B71C1C" if days >= 14 else "#E65100"
+        score_clr = rate_color(int(100 - score * 20))
+        text      = (t.get("text") or "")[:80]
         if len(t.get("text") or "") > 80:
             text += "..."
         task_rows += f"""
@@ -124,7 +129,7 @@ def build_html(metrics: dict, report_filename: str) -> str:
     *{{box-sizing:border-box;margin:0;padding:0;}}
     body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F4F8FB;color:#455A64;}}
 
-    .header{{background:#0D2B55;color:white;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;}}
+    .header{{background:#0D2B55;color:white;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}}
     .header h1{{font-size:22px;font-weight:700;}}
     .header .meta{{font-size:12px;color:#A0C4D8;text-align:right;}}
     .dl-btn{{background:#0D7C7C;color:white;padding:10px 20px;border-radius:6px;
@@ -173,7 +178,6 @@ def build_html(metrics: dict, report_filename: str) -> str:
     @media(max-width:768px){{
       .kpi-grid{{grid-template-columns:repeat(2,1fr);}}
       .region-grid{{grid-template-columns:1fr;}}
-      .header{{flex-direction:column;gap:14px;text-align:center;}}
     }}
   </style>
 </head>
@@ -185,7 +189,7 @@ def build_html(metrics: dict, report_filename: str) -> str:
     <h1>Engagement Report — {month_label}</h1>
     <div style="font-size:12px;color:#A0C4D8;margin-top:4px;">Westchester Medical Center Health Network</div>
   </div>
-  <div style="display:flex;align-items:center;gap:16px;">
+  <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
     <div class="meta">Source: Press Ganey<br/>Generated: {generated}</div>
     <a href="reports/{report_filename}" download class="dl-btn">⬇ Download Report (.pptx)</a>
   </div>
@@ -228,13 +232,13 @@ def build_html(metrics: dict, report_filename: str) -> str:
           <th>PFS Score</th><th>Days Open</th><th>Owner</th><th>Review Excerpt</th>
         </tr>
       </thead>
-      <tbody>{task_rows}</tbody>
+      <tbody>{task_rows if task_rows else '<tr><td colspan="7" style="text-align:center;padding:20px;color:#90A4AE;">No open tasks this month ✅</td></tr>'}</tbody>
     </table>
   </div>
 
   <div class="section-title">📁 Report Archive</div>
   <div class="archive">
-    <ul>{archive_links or '<li>No previous reports yet.</li>'}</ul>
+    <ul>{archive_links or '<li style="color:#90A4AE;padding:8px 0;">No reports generated yet — run the workflow to create your first one.</li>'}</ul>
   </div>
 
 </div>
@@ -252,6 +256,7 @@ def build_html(metrics: dict, report_filename: str) -> str:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", default="orm-reports/scripts/data.json")
+    parser.add_argument("--docs", default="docs", help="Root docs output folder (default: docs)")
     args = parser.parse_args()
 
     with open(args.data) as f:
@@ -260,13 +265,14 @@ def main():
     month_str       = metrics["meta"]["from_date"][:7]
     report_filename = f"WMCHealth_CTL_{month_str}.pptx"
 
-    html = build_html(metrics, report_filename)
+    html = build_html(metrics, report_filename, args.docs)
 
-    os.makedirs("orm-reports/docs", exist_ok=True)
-    with open("orm-reports/docs/index.html", "w") as f:
+    os.makedirs(args.docs, exist_ok=True)
+    output_path = os.path.join(args.docs, "index.html")
+    with open(output_path, "w") as f:
         f.write(html)
 
-    print("✅ Dashboard updated → orm-reports/docs/index.html")
+    print(f"✅ Dashboard updated → {output_path}")
     print(f"   Report link: reports/{report_filename}")
 
 
