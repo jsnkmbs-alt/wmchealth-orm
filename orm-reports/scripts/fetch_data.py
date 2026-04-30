@@ -49,11 +49,15 @@ def get_access_token(app_id: str, app_secret: str) -> str:
 # ── SOURCES ───────────────────────────────────────────────────────────────────
 def fetch_sources(token: str) -> list:
     print("📋 Fetching sources...")
-    response = requests.get(SOURCES_URL, headers={"accessToken": token}, timeout=30)
-    response.raise_for_status()
-    sources = response.json()
-    print(f"   Found {len(sources)} sources")
-    return sources
+    try:
+        response = requests.get(SOURCES_URL, headers={"accessToken": token}, timeout=30)
+        response.raise_for_status()
+        sources = response.json()
+        print(f"   Found {len(sources)} sources")
+        return sources
+    except Exception as e:
+        print(f"   ⚠️  Sources endpoint unavailable ({e}) — skipping.")
+        return []
 
 
 # ── REVIEWS (paginated) ───────────────────────────────────────────────────────
