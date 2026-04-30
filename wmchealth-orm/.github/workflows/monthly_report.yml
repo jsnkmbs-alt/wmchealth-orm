@@ -1,11 +1,8 @@
 name: Monthly CTL Report
 
 on:
-  # Runs automatically at 8am UTC on the 1st of every month
   schedule:
     - cron: '0 8 1 * *'
-
-  # Allows manual trigger from the Actions tab
   workflow_dispatch:
     inputs:
       month:
@@ -15,6 +12,12 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build-report:
@@ -63,12 +66,11 @@ jobs:
 
       - name: Update dashboard
         run: |
-          mkdir -p docs
           python orm-reports/scripts/update_dashboard.py \
             --data orm-reports/scripts/data.json \
             --docs docs
 
-      - name: Commit and push report
+      - name: Save data and report to repo
         run: |
           git config --global user.name  "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -76,3 +78,22 @@ jobs:
           git add docs/
           git diff --staged --quiet || git commit -m "📊 Auto-generate CTL report $(date +'%B %Y')"
           git push
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+  deploy:
+    needs: build-report
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
