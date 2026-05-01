@@ -9,6 +9,10 @@ on:
         description: 'Month to report (YYYY-MM). Leave blank for previous month.'
         required: false
         default: ''
+      use_sample_data:
+        description: 'Use sample data from PDF instead of API? (yes/no)'
+        required: false
+        default: 'no'
 
 permissions:
   contents: write
@@ -38,6 +42,7 @@ jobs:
         run: pip install -r orm-reports/requirements.txt
 
       - name: Fetch Press Ganey data
+        if: ${{ github.event.inputs.use_sample_data != 'yes' }}
         env:
           PG_APP_ID: ${{ secrets.PG_APP_ID }}
           PG_APP_SECRET: ${{ secrets.PG_APP_SECRET }}
@@ -52,6 +57,10 @@ jobs:
               --month "$MONTH" \
               --output orm-reports/scripts/data.json
           fi
+
+      - name: Use sample data from PDF
+        if: ${{ github.event.inputs.use_sample_data == 'yes' }}
+        run: echo "✅ Using existing sample data.json from repo"
 
       - name: Build PowerPoint report
         run: |

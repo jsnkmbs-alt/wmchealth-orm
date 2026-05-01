@@ -1,0 +1,208 @@
+{
+  "total_tasks": 63,
+  "meta": {
+    "month_label": "April 2026",
+    "from_date": "2026-04-01T00:00:00.000Z",
+    "to_date": "2026-04-30T23:59:59.000Z",
+    "generated_at": "2026-05-01T08:10:04.000Z",
+    "sources": [],
+    "engagement_api_data": {}
+  },
+  "network": {
+    "total_tasks": 63,
+    "closed_tasks": 60,
+    "engagement_rate": 95.2,
+    "avg_time_to_close_hours": 6,
+    "positive": 44,
+    "neutral": 8,
+    "negative": 11
+  },
+  "regions": {
+    "North": {
+      "total_tasks": 26,
+      "closed_tasks": 25,
+      "engagement_rate": 96.2,
+      "avg_time_to_close_hours": 7,
+      "positive": 19,
+      "neutral": 3,
+      "negative": 4
+    },
+    "South": {
+      "total_tasks": 26,
+      "closed_tasks": 25,
+      "engagement_rate": 96.2,
+      "avg_time_to_close_hours": 5,
+      "positive": 18,
+      "neutral": 4,
+      "negative": 4
+    },
+    "West": {
+      "total_tasks": 9,
+      "closed_tasks": 9,
+      "engagement_rate": 100.0,
+      "avg_time_to_close_hours": 2,
+      "positive": 7,
+      "neutral": 1,
+      "negative": 1
+    },
+    "Unknown": {
+      "total_tasks": 2,
+      "closed_tasks": 1,
+      "engagement_rate": 50.0,
+      "avg_time_to_close_hours": 0,
+      "positive": 0,
+      "neutral": 0,
+      "negative": 2
+    }
+  },
+  "by_source": {
+    "Google": {
+      "total": 61,
+      "closed": 60,
+      "engagement_rate": 98.4
+    },
+    "Yelp": {
+      "total": 2,
+      "closed": 0,
+      "engagement_rate": 0.0
+    }
+  },
+  "by_owner": {
+    "Managed Engagements": {
+      "total": 51,
+      "closed": 51,
+      "engagement_rate": 100.0,
+      "avg_time_to_close_hours": 6
+    },
+    "Review Engagement": {
+      "total": 11,
+      "closed": 9,
+      "engagement_rate": 81.8,
+      "avg_time_to_close_hours": 11
+    },
+    "Patient Experience Operations": {
+      "total": 1,
+      "closed": 0,
+      "engagement_rate": 0.0,
+      "avg_time_to_close_hours": 0
+    }
+  },
+  "by_location": {
+    "MidHudson Regional Hospital": {
+      "total": 15, "closed": 15, "region": "North", "engagement_rate": 100.0
+    },
+    "MidHudson Regional Hospital Emergency Department": {
+      "total": 4, "closed": 4, "region": "North", "engagement_rate": 100.0
+    },
+    "Maria Fareri Children's Hospital": {
+      "total": 8, "closed": 8, "region": "South", "engagement_rate": 100.0
+    },
+    "Good Samaritan Hospital Emergency Department": {
+      "total": 6, "closed": 6, "region": "West", "engagement_rate": 100.0
+    },
+    "Westchester Medical Center": {
+      "total": 15, "closed": 13, "region": "South", "engagement_rate": 86.7
+    },
+    "Westchester Medical Center Emergency Department": {
+      "total": 3, "closed": 3, "region": "South", "engagement_rate": 100.0
+    },
+    "Behavioral Health Center": {
+      "total": 3, "closed": 3, "region": "South", "engagement_rate": 100.0
+    },
+    "WMCHealth Physicians Advanced Women's Imaging Center": {
+      "total": 2, "closed": 2, "region": "South", "engagement_rate": 100.0
+    },
+    "St. Anthony Community Hospital Emergency Department": {
+      "total": 1, "closed": 1, "region": "West", "engagement_rate": 100.0
+    },
+    "Bon Secours Medical Group, Port Jervis Internal Medicine": {
+      "total": 1, "closed": 1, "region": "West", "engagement_rate": 100.0
+    },
+    "Advanced Imaging Center at Westchester Medical Center, Hawthorne": {
+      "total": 1, "closed": 1, "region": "South", "engagement_rate": 100.0
+    },
+    "The Monsignor Patrick J. Frawley Mental Health Outpatient Clinic": {
+      "total": 1, "closed": 1, "region": "North", "engagement_rate": 100.0
+    },
+    "Good Samaritan Hospital Esophageal and Reflux Center": {
+      "total": 1, "closed": 0, "region": "West", "engagement_rate": 0.0
+    },
+    "Dennis Philip John, MD": {
+      "total": 1, "closed": 1, "region": "North", "engagement_rate": 100.0
+    },
+    "Christine Elcik Carosella, MD": {
+      "total": 1, "closed": 1, "region": "North", "engagement_rate": 100.0
+    }
+  },
+  "open_tasks": [
+    {
+      "review_id": "16961777",
+      "location": "Westchester Medical Center",
+      "region": "South",
+      "source": "Google",
+      "score": 1.0,
+      "owner": "Patient Experience Operations",
+      "days_open": 19,
+      "mention_time": "2026-04-05T00:00:00Z",
+      "text": "I wouldn't go to this hospital the white doctors and staff are very racist towards patients and families of color."
+    },
+    {
+      "review_id": "17168831",
+      "location": "Westchester Medical Center",
+      "region": "South",
+      "source": "Yelp",
+      "score": 1.7,
+      "owner": "Review Engagement",
+      "days_open": 5,
+      "mention_time": "2026-04-22T00:00:00Z",
+      "text": "Dr. Holmes returned with the PA, her demeanor was noticeably different — felt sarcastic and condescending. Left feeling dismissed."
+    },
+    {
+      "review_id": "17163286",
+      "location": "Good Samaritan Hospital Esophageal and Reflux Center",
+      "region": "West",
+      "source": "Yelp",
+      "score": 0.8,
+      "owner": "Review Engagement",
+      "days_open": 5,
+      "mention_time": "2026-04-23T00:00:00Z",
+      "text": "Wrong barium drink given for wrong test. Staff tried to cover up the mistake. No apology. Sick for two days."
+    }
+  ],
+  "critical_alerts": [
+    {
+      "review_id": "16961777",
+      "location": "Westchester Medical Center",
+      "region": "South",
+      "source": "Google",
+      "score": 1.0,
+      "owner": "Patient Experience Operations",
+      "days_open": 19,
+      "mention_time": "2026-04-05T00:00:00Z",
+      "text": "I wouldn't go to this hospital the white doctors and staff are very racist towards patients and families of color."
+    },
+    {
+      "review_id": "17163286",
+      "location": "Good Samaritan Hospital Esophageal and Reflux Center",
+      "region": "West",
+      "source": "Yelp",
+      "score": 0.8,
+      "owner": "Review Engagement",
+      "days_open": 5,
+      "mention_time": "2026-04-23T00:00:00Z",
+      "text": "Wrong barium drink given for wrong test. Staff tried to cover up the mistake. No apology. Sick for two days."
+    },
+    {
+      "review_id": "17168831",
+      "location": "Westchester Medical Center",
+      "region": "South",
+      "source": "Yelp",
+      "score": 1.7,
+      "owner": "Review Engagement",
+      "days_open": 5,
+      "mention_time": "2026-04-22T00:00:00Z",
+      "text": "Dr. Holmes — demeanor was sarcastic and condescending. Left feeling dismissed after travelling significant distance."
+    }
+  ],
+  "reviews_raw": []
+}
