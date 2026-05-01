@@ -1,11 +1,204 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta http-equiv="refresh" content="0; url=../orm-reports/docs/index.html"/>
-  <title>WMCHealth ORM Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WMCHealth ORM CTL Report – April 2026</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F4F8FB;color:#455A64;}
+
+    .header{background:#0D2B55;color:white;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;}
+    .header h1{font-size:22px;font-weight:700;}
+    .header .meta{font-size:12px;color:#A0C4D8;text-align:right;}
+    .dl-btn{background:#0D7C7C;color:white;padding:10px 20px;border-radius:6px;
+             text-decoration:none;font-weight:600;font-size:13px;margin-left:20px;white-space:nowrap;}
+    .dl-btn:hover{background:#0a6060;}
+
+    .container{max-width:1200px;margin:0 auto;padding:28px 24px;}
+
+    .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+    .kpi-card{background:white;border-radius:8px;padding:20px;box-shadow:0 2px 6px rgba(0,0,0,.07);border-top:4px solid #ddd;}
+    .kpi-val{font-size:36px;font-weight:800;margin:8px 0 4px;}
+    .kpi-label{font-size:11px;font-weight:700;color:#607D8B;text-transform:uppercase;letter-spacing:.5px;}
+    .kpi-sub{font-size:11px;color:#90A4AE;margin-top:4px;}
+
+    .section-title{font-size:16px;font-weight:700;color:#0D2B55;margin:28px 0 14px;
+                    padding-bottom:8px;border-bottom:2px solid #E0E0E0;}
+
+    .region-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+    .region-card{background:white;border-radius:8px;padding:18px;box-shadow:0 2px 6px rgba(0,0,0,.07);}
+    .region-name{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+    .region-rate{font-size:38px;font-weight:800;margin:8px 0 4px;}
+    .region-sub{font-size:11px;color:#90A4AE;margin-bottom:12px;}
+    .sentiment-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:8px;}
+    .bar-pos{background:#2E7D32;}
+    .bar-neu{background:#E65100;}
+    .bar-neg{background:#B71C1C;}
+    .sentiment-legend{display:flex;gap:12px;font-size:10px;}
+
+    .table-wrap{background:white;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.07);overflow:hidden;margin-bottom:28px;}
+    table{width:100%;border-collapse:collapse;font-size:12px;}
+    thead tr{background:#0D2B55;color:white;}
+    th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #ECEFF1;}
+    .row-critical{background:#FFEBEE;}
+    .row-warn{background:#FFF3E0;}
+    .review-text{color:#78909C;font-style:italic;max-width:260px;}
+    .badge{color:white;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;}
+
+    .archive{background:white;border-radius:8px;padding:20px;box-shadow:0 2px 6px rgba(0,0,0,.07);}
+    .archive ul{list-style:none;padding:0;}
+    .archive li{padding:8px 0;border-bottom:1px solid #ECEFF1;}
+    .archive a{color:#0D7C7C;text-decoration:none;font-weight:500;}
+    .archive a:hover{text-decoration:underline;}
+
+    .footer{text-align:center;padding:24px;font-size:11px;color:#90A4AE;margin-top:20px;}
+
+    @media(max-width:768px){
+      .kpi-grid{grid-template-columns:repeat(2,1fr);}
+      .region-grid{grid-template-columns:1fr;}
+    }
+  </style>
 </head>
 <body>
-  <p>Redirecting to report dashboard...</p>
+
+<div class="header">
+  <div>
+    <div style="font-size:11px;color:#7EC8E3;letter-spacing:2px;margin-bottom:4px;">CLOSING THE LOOP</div>
+    <h1>Engagement Report — April 2026</h1>
+    <div style="font-size:12px;color:#A0C4D8;margin-top:4px;">Westchester Medical Center Health Network</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+    <div class="meta">Source: Press Ganey<br/>Generated: 2026-05-01</div>
+    <a href="reports/WMCHealth_CTL_2026-04.pptx" download class="dl-btn">⬇ Download Report (.pptx)</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="kpi-grid">
+    <div class="kpi-card" style="border-top-color:#0D7C7C;">
+      <div class="kpi-label">Avg Engagement Rate</div>
+      <div class="kpi-val" style="color:#2E7D32;">95.2%</div>
+      <div class="kpi-sub">Network-wide</div>
+    </div>
+    <div class="kpi-card" style="border-top-color:#0D2B55;">
+      <div class="kpi-label">Total Tasks</div>
+      <div class="kpi-val" style="color:#0D2B55;">63</div>
+      <div class="kpi-sub">Total feedback records</div>
+    </div>
+    <div class="kpi-card" style="border-top-color:#2E7D32;">
+      <div class="kpi-label">Closed Tasks</div>
+      <div class="kpi-val" style="color:#2E7D32;">60</div>
+      <div class="kpi-sub">Online / Email engaged</div>
+    </div>
+    <div class="kpi-card" style="border-top-color:#E65100;">
+      <div class="kpi-label">Avg Time to Close</div>
+      <div class="kpi-val" style="color:#E65100;">6 hrs</div>
+      <div class="kpi-sub">From review to response</div>
+    </div>
+  </div>
+
+  <div class="section-title">Regional Performance</div>
+  <div class="region-grid">
+        <div class="region-card" style="border-top:4px solid #2E7D32;">
+          <div class="region-name" style="color:#2E7D32;">South</div>
+          <div class="region-rate" style="color:#2E7D32;">96.2%</div>
+          <div class="region-sub">26 tasks &nbsp;|&nbsp; Avg close: 5 hrs</div>
+          <div class="sentiment-bar">
+            <div class="bar-pos" style="width:69%"></div>
+            <div class="bar-neu" style="width:15%"></div>
+            <div class="bar-neg" style="width:16%"></div>
+          </div>
+          <div class="sentiment-legend">
+            <span style="color:#2E7D32;">▲ 18 positive</span>
+            <span style="color:#E65100;">◆ 4 neutral</span>
+            <span style="color:#B71C1C;">▼ 4 negative</span>
+          </div>
+        </div>
+        <div class="region-card" style="border-top:4px solid #0D7C7C;">
+          <div class="region-name" style="color:#0D7C7C;">North</div>
+          <div class="region-rate" style="color:#2E7D32;">96.2%</div>
+          <div class="region-sub">26 tasks &nbsp;|&nbsp; Avg close: 7 hrs</div>
+          <div class="sentiment-bar">
+            <div class="bar-pos" style="width:73%"></div>
+            <div class="bar-neu" style="width:12%"></div>
+            <div class="bar-neg" style="width:15%"></div>
+          </div>
+          <div class="sentiment-legend">
+            <span style="color:#2E7D32;">▲ 19 positive</span>
+            <span style="color:#E65100;">◆ 3 neutral</span>
+            <span style="color:#B71C1C;">▼ 4 negative</span>
+          </div>
+        </div>
+        <div class="region-card" style="border-top:4px solid #E65100;">
+          <div class="region-name" style="color:#E65100;">West</div>
+          <div class="region-rate" style="color:#2E7D32;">100.0%</div>
+          <div class="region-sub">9 tasks &nbsp;|&nbsp; Avg close: 2 hrs</div>
+          <div class="sentiment-bar">
+            <div class="bar-pos" style="width:78%"></div>
+            <div class="bar-neu" style="width:11%"></div>
+            <div class="bar-neg" style="width:11%"></div>
+          </div>
+          <div class="sentiment-legend">
+            <span style="color:#2E7D32;">▲ 7 positive</span>
+            <span style="color:#E65100;">◆ 1 neutral</span>
+            <span style="color:#B71C1C;">▼ 1 negative</span>
+          </div>
+        </div></div>
+
+  <div class="section-title">⚠ Open &amp; Critical Tasks (Top 3 by Urgency)</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Location</th><th>Region</th><th>Source</th>
+          <th>PFS Score</th><th>Days Open</th><th>Owner</th><th>Review Excerpt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-critical">
+          <td>Good Samaritan Hospital Esophageal and Reflux Center</td>
+          <td><span class="badge" style="background:#E65100">West</span></td>
+          <td>Yelp</td>
+          <td style="color:#E65100;font-weight:bold;">0.8</td>
+          <td style="color:#E65100;font-weight:bold;">5d</td>
+          <td>Review Engagement</td>
+          <td class="review-text">Wrong barium drink given for wrong test. Staff tried to cover up the mistake. No...</td>
+        </tr>
+        <tr class="row-critical">
+          <td>Westchester Medical Center</td>
+          <td><span class="badge" style="background:#2E7D32">South</span></td>
+          <td>Google</td>
+          <td style="color:#E65100;font-weight:bold;">1.0</td>
+          <td style="color:#B71C1C;font-weight:bold;">19d</td>
+          <td>Patient Experience Operations</td>
+          <td class="review-text">I wouldn't go to this hospital the white doctors and staff are very racist towar...</td>
+        </tr>
+        <tr class="row-warn">
+          <td>Westchester Medical Center</td>
+          <td><span class="badge" style="background:#2E7D32">South</span></td>
+          <td>Yelp</td>
+          <td style="color:#B71C1C;font-weight:bold;">1.7</td>
+          <td style="color:#E65100;font-weight:bold;">5d</td>
+          <td>Review Engagement</td>
+          <td class="review-text">Dr. Holmes returned with the PA, her demeanor was noticeably different — felt sa...</td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <div class="section-title">📁 Report Archive</div>
+  <div class="archive">
+    <ul><li><a href="reports/WMCHealth_CTL_2026-04.pptx" download>📥 April 2026</a></li>
+</ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  WMCHealth ORM CTL Dashboard &nbsp;·&nbsp; Powered by Press Ganey API &nbsp;·&nbsp;
+  Auto-generated by GitHub Actions &nbsp;·&nbsp; 2026-05-01
+</div>
+
 </body>
 </html>
